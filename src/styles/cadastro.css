@@ -131,6 +131,22 @@ form > button {
   border: 2px solid #ffb03b;
 }
 
+.select-{
+  width: 70vw;
+  height: 7vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  max-width: 450px;
+  min-width: 200px;
+  font-size: 20px;
+}
+select{
+  width: 120px;
+  font-size: 18px;
+}
+
 @media (max-width: 350px) {
   .logo_preto {
     font-size: 40px;

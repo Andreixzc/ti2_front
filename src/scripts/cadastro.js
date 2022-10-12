@@ -4,6 +4,7 @@ formCadastrar.addEventListener("submit", validar);
 function validar(event) {
   event.preventDefault();
   const formDados = new FormData(event.target);
+  // console.log(Object.fromEntries(formDados),'saj0ijiasn')
   const novoUsuario = JSON.stringify(Object.fromEntries(formDados));
   formCadastrar.reset();
   registerUser(novoUsuario);
