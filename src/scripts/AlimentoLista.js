@@ -10,7 +10,8 @@ if (!localStorage.getItem("@CURRENT_USER")) {
   localStorage.clear();
   location.href = "../../login.html";
 }
-
+// 
+// p
 const urlGetAlimento = "https://expresso-fiesta.herokuapp.com/alimento/list";
 
 function data() {
