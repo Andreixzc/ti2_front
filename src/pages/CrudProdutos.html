@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Bootstrap CRUD Data Table for Database with Modal Form</title>
+<title>Área do Vendedor</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -296,7 +296,7 @@ $(document).ready(function(){
 						<h2><b>Alimentos</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Novo Alimento</span></a>
+						<a href="#addProductModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Novo Alimento</span></a>
 					</div>
 				</div>
 			</div>
@@ -320,8 +320,10 @@ $(document).ready(function(){
 						<td>thomashardy@mail.com</td>
 						<td>89 Chiaroscuro Rd, Portland, USA</td>
 						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<a href="#editProductModal" class="edit" data-toggle="modal">
+							<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+							<a href="#deleteProductModal" class="delete" data-toggle="modal">
+							<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 						</td>
 					</tr>
 					<!-- each -->
@@ -331,7 +333,7 @@ $(document).ready(function(){
 	</div>        
 </div>
 <!-- new product modal -->
-<div id="addEmployeeModal" class="modal fade">
+<div id="addProductModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form>
@@ -368,7 +370,7 @@ $(document).ready(function(){
 
 
 <!-- atualizacao modal --k -->
-<div id="editEmployeeModal" class="modal fade">
+<div id="editProductModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form>
@@ -405,7 +407,7 @@ $(document).ready(function(){
 
 
 <!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
+<div id="deleteProductModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form>
@@ -437,7 +439,7 @@ $(document).ready(function(){
 						<h2><b>Atrações</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Nova Atração</span></a>
+						<a href="#addProductModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Nova Atração</span></a>
 					</div>
 				</div>
 			</div>
@@ -459,8 +461,10 @@ $(document).ready(function(){
 						<td>Thomas Hardy</td>
 						<td>thomashardy@mail.com</td>
 						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<a href="#editProductModal" class="edit" data-toggle="modal">
+							<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+							<a href="#deleteProductModal" class="delete" data-toggle="modal">
+							<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 						</td>
 					</tr>
 					<!-- each -->
@@ -482,7 +486,7 @@ $(document).ready(function(){
 						<h2><b>Local</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Novo Local</span></a>
+						<a href="#addProductModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Novo Local</span></a>
 					</div>
 				</div>
 			</div>
@@ -506,10 +510,10 @@ $(document).ready(function(){
 						<td>thomashardy@mail.com</td>
 						<td>89 Chiaroscuro Rd, Portland, USA</td>
 						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal">
+							<a href="#editProductModal" class="edit" data-toggle="modal">
 							<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+							<a href="#deleteProductModal" class="delete" data-toggle="modal">
 							<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 						</td>
 					</tr>
@@ -519,6 +523,6 @@ $(document).ready(function(){
 		</div>
 	</div>        
 </div>
-
+	<script src="../scripts/CRUD.js"></script>
 </body>
 </html>

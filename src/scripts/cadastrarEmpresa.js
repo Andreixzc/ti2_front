@@ -10,7 +10,6 @@ async function cadastrar(e) {
   };
   const novaEmpresa = JSON.stringify(empresa);
 
-//   console.log(novaEmpresa);
   let res = await fetch(urlInsertCompany, {
     method: "POST",
     body: novaEmpresa,
@@ -22,12 +21,10 @@ async function cadastrar(e) {
     })
     .catch((err) => window.alert(err.message));
 
-  //   verificar body retorno
-  //   inserir dados da empresa no localstorage
-
-  localStorage.setItem("@CURRENT_COMPANY", JSON.stringify(res));
+  // gravar local storage somente no login
+  // localStorage.setItem("@CURRENT_COMPANY", JSON.stringify(res));
 
   setTimeout(() => {
-    window.location = "/src/empresaDetails/empresaDetalhes.html";
+    window.location = "/src/login.html";
   }, 500);
 }
