@@ -253,31 +253,31 @@ table.table .avatar {
 	font-weight: normal;
 }	
 </style>
-<script>
-$(document).ready(function(){
-	// Activate tooltip
-	$('[data-toggle="tooltip"]').tooltip();
-	
-	// Select/Deselect checkboxes
-	var checkbox = $('table tbody input[type="checkbox"]');
-	$("#selectAll").click(function(){
-		if(this.checked){
-			checkbox.each(function(){
-				this.checked = true;                        
-			});
-		} else{
-			checkbox.each(function(){
-				this.checked = false;                        
-			});
-		} 
+<!-- <script>
+	$(document).ready(function(){
+		// Activate tooltip
+		$('[data-toggle="tooltip"]').tooltip();
+		
+		// Select/Deselect checkboxes
+		var checkbox = $('table tbody input[type="checkbox"]');
+		$("#selectAll").click(function(){
+			if(this.checked){
+				checkbox.each(function(){
+					this.checked = true;                        
+				});
+			} else{
+				checkbox.each(function(){
+					this.checked = false;                        
+				});
+			} 
+		});	
+		checkbox.click(function(){
+			if(!this.checked){
+				$("#selectAll").prop("checked", false);
+			}
+		});
 	});
-	checkbox.click(function(){
-		if(!this.checked){
-			$("#selectAll").prop("checked", false);
-		}
-	});
-});
-</script>
+	</script> -->
 </head>
 <nav>
     <div class="container">
@@ -351,7 +351,7 @@ $(document).ready(function(){
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" value="Add">
+					<button type="submit" class="btn btn-success" id="botao-adicionar">Add</button>
 				</div>
 			</form>
 		</div>
@@ -388,7 +388,8 @@ $(document).ready(function(){
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-info" value="Save">
+					<!-- <input type="submit" class="btn btn-info" value="Save"> -->
+					<button type="submit" class="btn btn-info" id="botao-editar">Save</button>
 				</div>
 			</form>
 		</div>
@@ -397,7 +398,7 @@ $(document).ready(function(){
 
 
 <!-- Delete Modal HTML -->
-<div id="deleteProductModal" class="modal fade">
+<div id="deleteProductModal" class="modal fade" data-target="modal-delete">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form>
@@ -411,7 +412,10 @@ $(document).ready(function(){
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-default" data-dismiss="modal" >Cancelar</button>
-					<button type="submit" class="btn btn-danger" >Excluir</button>
+					<button type="button" class="btn btn-danger" 
+					id="botao-excluir" >Excluir</button>
+
+					<!-- <button type="submit" class="btn btn-danger" id="botao-excluir">Excluir</button> -->
 				</div>
 			</form>
 		</div>
@@ -444,20 +448,7 @@ $(document).ready(function(){
 					</tr>
 				</thead>
 				<tbody id="container-atracoes--">
-					<!-- each -->
-					<tr>
-						<td>
-						</td>
-						<td>Thomas Hardy</td>
-						<td>thomashardy@mail.com</td>
-						<td>
-							<a href="#editProductModal" class="edit" data-toggle="modal">
-							<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteProductModal" class="delete" data-toggle="modal">
-							<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<!-- each -->
+					
 				</tbody>
 			</table>
 		</div>
@@ -492,22 +483,7 @@ $(document).ready(function(){
 					</tr>
 				</thead>
 				<tbody id="container-locais--">
-					<!-- each -->
-					<tr>
-						<td>
-						</td>
-						<td>Thomas Hardy</td>
-						<td>thomashardy@mail.com</td>
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-						<td>
-							<a href="#editProductModal" class="edit" data-toggle="modal">
-							<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-
-							<a href="#deleteProductModal" class="delete" data-toggle="modal">
-							<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<!-- each -->
+					
 				</tbody>
 			</table>
 		</div>

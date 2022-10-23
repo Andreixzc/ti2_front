@@ -1,5 +1,6 @@
-import { locais, alimentos, atracoes } from "./arrayTest/produtos.js";
 import AlimentoModel from "./crudModels/ALimentoModel.js";
+import AtracaoModel from "./crudModels/AtracaoModel.js";
+import LocalModel from "./crudModels/LocalModel.js";
 // function logout() {
 //   window.alert("Você não tem permissão para acessar esta área!");
 //   location.href = "/src/Delicious/index.html";
@@ -12,10 +13,9 @@ import AlimentoModel from "./crudModels/ALimentoModel.js";
 // const urlGetAtracao = `https://expresso-fiesta.herokuapp.com/empresa/atracaoList/${empresaId}`;
 // const urlGetLocal = `https://expresso-fiesta.herokuapp.com/empresa/localList/${empresaId}`;
 
-const containerAlimentos = document.getElementById("container-alimentos--");
-const containerAtracoes = document.getElementById("container-atracoes--");
-const containerLocais = document.getElementById("container-locais--");
 
-alimentos.forEach((el) => {
-  containerAlimentos.appendChild(AlimentoModel.criaCardAlimento(el));
-});
+
+
+AlimentoModel.populaAlimentos()
+AtracaoModel.populaAtracao()
+LocalModel.populaLocais()

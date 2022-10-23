@@ -1,31 +1,27 @@
-import { alimentos } from "../arrayTest/produtos.js";
-import { closeModal } from "./setOpenCloseModal.js";
-export default class AlimentoModel {
+import { locais } from "../arrayTest/produtos.js";
+export default class LocalModel {
   static modalDeleteID = "#deleteProductModal";
   static modalUpdateID = "#editProductModal";
   static modalCreateID = "#addProductModal";
-
-  static criaCardAlimento(alimento) {
-    alimento.tipo = "alimento";
+  static criaCardLocal(local) {
+    local.tipo = 'local'
     const trContainer = document.createElement("tr");
     const td1 = document.createElement("td");
     const td2 = document.createElement("td");
-    td2.innerText = alimento.nome;
+    td2.innerText = local.nome;
     const td3 = document.createElement("td");
-    td3.innerText = alimento.valor.toFixed(2);
+    td3.innerText = local.valor.toFixed(2);
     const td4 = document.createElement("td");
-    td4.innerText = alimento.quantidade;
+    td4.innerText = local.endereco;
     const td5 = document.createElement("td");
     trContainer.append(td1, td2, td3, td4, td5);
-
     const editBotao = document.createElement("a");
-    editBotao.setAttribute("id", `${JSON.stringify(alimento)}`);
-    editBotao.addEventListener("click", this.editaAlimento);
+    editBotao.setAttribute("id", `${JSON.stringify(local)}`);
+    editBotao.addEventListener("click", this.editaLocal);
 
     const deleteBotao = document.createElement("a");
-    deleteBotao.setAttribute("id", `${JSON.stringify(alimento)}`);
-    deleteBotao.addEventListener("click", this.deletaAlimento);
-
+    deleteBotao.setAttribute("id", `${JSON.stringify(local)}`);
+    deleteBotao.addEventListener("click", this.deletaLocal);
     td5.append(editBotao, deleteBotao);
 
     editBotao.href = "#editProductModal";
@@ -53,35 +49,24 @@ export default class AlimentoModel {
     return trContainer;
   }
 
-  static populaAlimentos() {
-    const containerAlimentos = document.getElementById("container-alimentos--");
-    containerAlimentos.innerHTML = "";
-    // fazer requisicao de get aqui armazenar os dados atualizados
+  static populaLocais() {
+    const containerLocais = document.getElementById("container-locais--");
+    containerLocais.innerHTML = "";
 
-    alimentos.forEach((el) => {
-      containerAlimentos.appendChild(this.criaCardAlimento(el));
+    locais.forEach((el) => {
+      containerLocais.appendChild(this.criaCardLocal(el));
     });
   }
 
-  static deletaAlimento(e) {
+  static deletaLocal(e) {
     e.preventDefault();
-    const obj = JSON.parse(e.currentTarget.id);
-    // console.log("deletaALimento");
-    // console.log(obj);
-    const botaoExcluir = document.getElementById("botao-excluir");
-    botaoExcluir.addEventListener("click", () => {
-      // e.preventDefault()
-      return AlimentoModel.performaDelecao(obj);
-    });
+    const obj = JSON.parse(e.currentTarget.id)
+    // const botaoExcluir = document.getElementById
   }
-  static performaDelecao(alimentoAtual) {
-    closeModal(this.modalDeleteID);
-  }
-
-  static editaAlimento(e) {
+  static editaLocal(e) {
     e.preventDefault();
-    const obj = JSON.parse(e.currentTarget.id);
-    // console.log("editaAlimento");
-    // console.log(obj);
+    const obj = JSON.parse(e.currentTarget.id)
+    console.log("editaLocal");
+    console.log(obj);
   }
 }
