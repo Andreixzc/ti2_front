@@ -6,10 +6,10 @@ export default class AtracaoModel {
   static modalUpdateID = "#editProductModal";
   static modalCreateID = "#addProductModal";
   static currentProduct = {};
-  static criaCardAtracao(atracao) {
-    
-
-    atracao.tipo = 'atracao'
+  static deleteBtn;
+  static criaCardAtracao(atracaoParam) {
+    const atracao = { ...atracaoParam };
+    atracao.tipo = "atracao";
 
     const trContainer = document.createElement("tr");
     const td1 = document.createElement("td");
@@ -17,7 +17,7 @@ export default class AtracaoModel {
     td2.innerText = atracao.nome;
     const td3 = document.createElement("td");
     td3.innerText = atracao.valor.toFixed(2);
-   
+
     const td5 = document.createElement("td");
     trContainer.append(td1, td2, td3, td5);
 
@@ -28,7 +28,6 @@ export default class AtracaoModel {
     const deleteBotao = document.createElement("a");
     deleteBotao.setAttribute("id", `${JSON.stringify(atracao)}`);
     deleteBotao.addEventListener("click", this.deletaAtracao);
-
 
     td5.append(editBotao, deleteBotao);
 
@@ -58,8 +57,7 @@ export default class AtracaoModel {
   }
 
   static populaAtracao() {
-    const containerAtracoes = document.getElementById(
-      "container-atracoes--");
+    const containerAtracoes = document.getElementById("container-atracoes--");
     containerAtracoes.innerHTML = "";
 
     atracoes.forEach((el) => {
@@ -72,8 +70,10 @@ export default class AtracaoModel {
     const botaoExcluir = document.getElementById("botao-excluir");
     AtracaoModel.currentProduct = obj;
     botaoExcluir.addEventListener("click", AtracaoModel.performaDelecao);
+    AtracaoModel.deleteBtn = botaoExcluir;
   }
   static performaDelecao() {
+    AtracaoModel.deleteBtn.removeEventListener("click", AtracaoModel.performaDelecao, false);
     const id = AtracaoModel.currentProduct.id;
     const idx = atracoes.findIndex((el) => el.id == id);
     atracoes.splice(idx, 1);
@@ -83,7 +83,6 @@ export default class AtracaoModel {
 
   static editaAtracao(e) {
     e.preventDefault();
-    const obj = JSON.parse(e.currentTarget.id)
+    const obj = JSON.parse(e.currentTarget.id);
   }
-
 }

@@ -5,8 +5,10 @@ export default class AlimentoModel {
   static modalUpdateID = "#editProductModal";
   static modalCreateID = "#addProductModal";
   static currentProduct = {};
+  static deleteBtn;
 
-  static criaCardAlimento(alimento) {
+  static criaCardAlimento(alimentoParam) {
+    const alimento = { ...alimentoParam };
     alimento.tipo = "alimento";
     const trContainer = document.createElement("tr");
     const td1 = document.createElement("td");
@@ -55,8 +57,7 @@ export default class AlimentoModel {
   }
 
   static populaAlimentos() {
-    const containerAlimentos = document.getElementById(
-      "container-alimentos--");
+    const containerAlimentos = document.getElementById("container-alimentos--");
     containerAlimentos.innerHTML = "";
     // fazer requisicao de get aqui armazenar os dados atualizados
     alimentos.forEach((el) => {
@@ -69,13 +70,17 @@ export default class AlimentoModel {
     const botaoExcluir = document.getElementById("botao-excluir");
     AlimentoModel.currentProduct = obj;
     botaoExcluir.addEventListener("click", AlimentoModel.performaDelecao);
+    AlimentoModel.deleteBtn = botaoExcluir;
   }
   static async performaDelecao() {
+    AlimentoModel.deleteBtn.removeEventListener("click", AlimentoModel.performaDelecao, false);
     const id = AlimentoModel.currentProduct.id;
     const idx = alimentos.findIndex((el) => el.id == id);
+    console.log(idx);
     // aqui sera necessario esperar terminar o delete e fazer
     // o get denovo nos produtos
     await alimentos.splice(idx, 1);
+
     await AlimentoModel.populaAlimentos();
     closeModal(AlimentoModel.modalDeleteID);
   }

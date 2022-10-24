@@ -5,8 +5,11 @@ export default class LocalModel {
   static modalUpdateID = "#editProductModal";
   static modalCreateID = "#addProductModal";
   static currentProduct = {};
-  static criaCardLocal(local) {
-    local.tipo = 'local'
+  static deleteBtn;
+  static criaCardLocal(localParam) {
+    const local = { ...localParam };
+    local.tipo = "local";
+
     const trContainer = document.createElement("tr");
     const td1 = document.createElement("td");
     const td2 = document.createElement("td");
@@ -65,11 +68,14 @@ export default class LocalModel {
     const botaoExcluir = document.getElementById("botao-excluir");
     LocalModel.currentProduct = obj;
     botaoExcluir.addEventListener("click", LocalModel.performaDelecao);
+    LocalModel.deleteBtn = botaoExcluir;
   }
 
   static performaDelecao() {
+    LocalModel.deleteBtn.removeEventListener("click", LocalModel.performaDelecao, false);
     const id = LocalModel.currentProduct.id;
     const idx = locais.findIndex((el) => el.id == id);
+    console.log(idx);
     locais.splice(idx, 1);
     LocalModel.populaLocais();
     closeModal(LocalModel.modalDeleteID);
@@ -77,6 +83,6 @@ export default class LocalModel {
 
   static editaLocal(e) {
     e.preventDefault();
-    const obj = JSON.parse(e.currentTarget.id)
+    const obj = JSON.parse(e.currentTarget.id);
   }
 }
