@@ -1,8 +1,10 @@
 import { locais } from "../arrayTest/produtos.js";
+import { closeModal } from "./setOpenCloseModal.js";
 export default class LocalModel {
   static modalDeleteID = "#deleteProductModal";
   static modalUpdateID = "#editProductModal";
   static modalCreateID = "#addProductModal";
+  static currentProduct = {};
   static criaCardLocal(local) {
     local.tipo = 'local'
     const trContainer = document.createElement("tr");
@@ -59,14 +61,22 @@ export default class LocalModel {
   }
 
   static deletaLocal(e) {
-    e.preventDefault();
-    const obj = JSON.parse(e.currentTarget.id)
-    // const botaoExcluir = document.getElementById
+    const obj = JSON.parse(e.currentTarget.id);
+    const botaoExcluir = document.getElementById("botao-excluir");
+    LocalModel.currentProduct = obj;
+    botaoExcluir.addEventListener("click", LocalModel.performaDelecao);
   }
+
+  static performaDelecao() {
+    const id = LocalModel.currentProduct.id;
+    const idx = locais.findIndex((el) => el.id == id);
+    locais.splice(idx, 1);
+    LocalModel.populaLocais();
+    closeModal(LocalModel.modalDeleteID);
+  }
+
   static editaLocal(e) {
     e.preventDefault();
     const obj = JSON.parse(e.currentTarget.id)
-    console.log("editaLocal");
-    console.log(obj);
   }
 }

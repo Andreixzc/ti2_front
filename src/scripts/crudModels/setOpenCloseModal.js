@@ -6,7 +6,7 @@ async function closeModal(modelId) {
     $(`${modelId}`).modal("hide");
   }, 300);
 
-  return;
+  // return;
 }
 
 export { closeModal };

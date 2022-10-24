@@ -1,8 +1,11 @@
 import { atracoes } from "../arrayTest/produtos.js";
+import { closeModal } from "./setOpenCloseModal.js";
+
 export default class AtracaoModel {
   static modalDeleteID = "#deleteProductModal";
   static modalUpdateID = "#editProductModal";
   static modalCreateID = "#addProductModal";
+  static currentProduct = {};
   static criaCardAtracao(atracao) {
     
 
@@ -55,7 +58,8 @@ export default class AtracaoModel {
   }
 
   static populaAtracao() {
-    const containerAtracoes = document.getElementById("container-atracoes--");
+    const containerAtracoes = document.getElementById(
+      "container-atracoes--");
     containerAtracoes.innerHTML = "";
 
     atracoes.forEach((el) => {
@@ -64,16 +68,22 @@ export default class AtracaoModel {
   }
 
   static deletaAtracao(e) {
-    e.preventDefault();
-    const obj = JSON.parse(e.currentTarget.id)
-    console.log("deleteAtracao");
-    console.log(obj);
+    const obj = JSON.parse(e.currentTarget.id);
+    const botaoExcluir = document.getElementById("botao-excluir");
+    AtracaoModel.currentProduct = obj;
+    botaoExcluir.addEventListener("click", AtracaoModel.performaDelecao);
   }
+  static performaDelecao() {
+    const id = AtracaoModel.currentProduct.id;
+    const idx = atracoes.findIndex((el) => el.id == id);
+    atracoes.splice(idx, 1);
+    AtracaoModel.populaAtracao();
+    closeModal(AtracaoModel.modalDeleteID);
+  }
+
   static editaAtracao(e) {
     e.preventDefault();
     const obj = JSON.parse(e.currentTarget.id)
-    console.log("editaAtracao");
-    console.log(obj);
   }
 
 }

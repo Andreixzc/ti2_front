@@ -4,6 +4,7 @@ export default class AlimentoModel {
   static modalDeleteID = "#deleteProductModal";
   static modalUpdateID = "#editProductModal";
   static modalCreateID = "#addProductModal";
+  static currentProduct = {};
 
   static criaCardAlimento(alimento) {
     alimento.tipo = "alimento";
@@ -54,34 +55,33 @@ export default class AlimentoModel {
   }
 
   static populaAlimentos() {
-    const containerAlimentos = document.getElementById("container-alimentos--");
+    const containerAlimentos = document.getElementById(
+      "container-alimentos--");
     containerAlimentos.innerHTML = "";
     // fazer requisicao de get aqui armazenar os dados atualizados
-
     alimentos.forEach((el) => {
       containerAlimentos.appendChild(this.criaCardAlimento(el));
     });
   }
 
   static deletaAlimento(e) {
-    e.preventDefault();
     const obj = JSON.parse(e.currentTarget.id);
-    // console.log("deletaALimento");
-    // console.log(obj);
     const botaoExcluir = document.getElementById("botao-excluir");
-    botaoExcluir.addEventListener("click", () => {
-      // e.preventDefault()
-      return AlimentoModel.performaDelecao(obj);
-    });
+    AlimentoModel.currentProduct = obj;
+    botaoExcluir.addEventListener("click", AlimentoModel.performaDelecao);
   }
-  static performaDelecao(alimentoAtual) {
-    closeModal(this.modalDeleteID);
+  static async performaDelecao() {
+    const id = AlimentoModel.currentProduct.id;
+    const idx = alimentos.findIndex((el) => el.id == id);
+    // aqui sera necessario esperar terminar o delete e fazer
+    // o get denovo nos produtos
+    await alimentos.splice(idx, 1);
+    await AlimentoModel.populaAlimentos();
+    closeModal(AlimentoModel.modalDeleteID);
   }
 
   static editaAlimento(e) {
     e.preventDefault();
     const obj = JSON.parse(e.currentTarget.id);
-    // console.log("editaAlimento");
-    // console.log(obj);
   }
 }
