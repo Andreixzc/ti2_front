@@ -45,7 +45,7 @@ export class Registro {
   }
 
   static geraIdRandom() {
-    return parseInt(Math.random() * (2000 - 100) + 100);
+    return parseInt(Math.random() * (30000 - 200) + 200);
   }
 
   static performaCriacaoAlimento() {
@@ -58,10 +58,10 @@ export class Registro {
     }
     // json stringfy dpois
     alimentoForm.reset();
-    const idProduto = Registro.geraIdRandom(); // colocar o localstoragep ra final dinamico
+    const idProduto = Registro.geraIdRandom(); 
     const prod = {
       id: idProduto,
-      id_empresa: 1,
+      id_empresa: 1, // colocar o localstoragep ra final dinamico
       ...novoProduto,
       valor: +novoProduto.valor,
       quantidade: +novoProduto.quantidade,
@@ -82,10 +82,10 @@ export class Registro {
     }
     // json stringfy dpois
     atracaoForm.reset();
-    const idProduto = Registro.geraIdRandom(); // colocar o localstoragep ra final dinamico
+    const idProduto = Registro.geraIdRandom(); 
     const prod = {
       id: idProduto,
-      id_empresa: 1,
+      id_empresa: 1, // colocar o localstoragep ra final dinamico
       ...novoProduto,
       valor: +novoProduto.valor,
     };
@@ -104,11 +104,11 @@ export class Registro {
     }
     // json stringfy dpois
     localForm.reset();
-    const idProduto = Registro.geraIdRandom(); // colocar o localstoragep ra final dinamico
+    const idProduto = Registro.geraIdRandom(); 
     const statusLocal = "DISPONIVEL";
     const prod = {
       id: idProduto,
-      id_empresa: 1,
+      id_empresa: 1, // colocar o localstoragep ra final dinamico
       status: statusLocal,
       ...novoProduto,
       valor: +novoProduto.valor,

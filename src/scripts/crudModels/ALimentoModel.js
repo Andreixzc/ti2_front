@@ -1,5 +1,6 @@
 import { alimentos } from "../arrayTest/produtos.js";
 import { closeModal } from "./setOpenCloseModal.js";
+import { Atualizacao } from "./AtualizacaoModel.js";
 export default class AlimentoModel {
   static modalDeleteID = "#deleteProductModal";
   static modalUpdateID = "#editProductModal";
@@ -31,7 +32,7 @@ export default class AlimentoModel {
 
     td5.append(editBotao, deleteBotao);
 
-    editBotao.href = "#editProductModal";
+    editBotao.href = "#editProductModalAlimento";
     editBotao.classList.add("edit");
     editBotao.setAttribute("data-toggle", "modal");
 
@@ -76,7 +77,6 @@ export default class AlimentoModel {
     AlimentoModel.deleteBtn.removeEventListener("click", AlimentoModel.performaDelecao, false);
     const id = AlimentoModel.currentProduct.id;
     const idx = alimentos.findIndex((el) => el.id == id);
-    console.log(idx);
     // aqui sera necessario esperar terminar o delete e fazer
     // o get denovo nos produtos
     await alimentos.splice(idx, 1);
@@ -88,5 +88,6 @@ export default class AlimentoModel {
   static editaAlimento(e) {
     e.preventDefault();
     const obj = JSON.parse(e.currentTarget.id);
+    Atualizacao.AtualizacaoAlimento(obj)
   }
 }

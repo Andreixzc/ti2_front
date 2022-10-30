@@ -1,5 +1,6 @@
 import AlimentoModel from "./crudModels/ALimentoModel.js";
 import AtracaoModel from "./crudModels/AtracaoModel.js";
+import { Atualizacao } from "./crudModels/AtualizacaoModel.js";
 import LocalModel from "./crudModels/LocalModel.js";
 import { Registro } from "./crudModels/RegistroModel.js";
 // function logout() {

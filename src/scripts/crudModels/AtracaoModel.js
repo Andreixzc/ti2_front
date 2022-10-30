@@ -1,5 +1,7 @@
 import { atracoes } from "../arrayTest/produtos.js";
 import { closeModal } from "./setOpenCloseModal.js";
+import { Atualizacao } from "./AtualizacaoModel.js";
+
 
 export default class AtracaoModel {
   static modalDeleteID = "#deleteProductModal";
@@ -31,7 +33,7 @@ export default class AtracaoModel {
 
     td5.append(editBotao, deleteBotao);
 
-    editBotao.href = "#editProductModal";
+    editBotao.href = "#editProductModalAtracao";
     editBotao.classList.add("edit");
     editBotao.setAttribute("data-toggle", "modal");
 
@@ -84,5 +86,6 @@ export default class AtracaoModel {
   static editaAtracao(e) {
     e.preventDefault();
     const obj = JSON.parse(e.currentTarget.id);
+    Atualizacao.AtualizacaoAtracao(obj)
   }
 }

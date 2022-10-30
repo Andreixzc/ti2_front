@@ -1,5 +1,8 @@
 import { locais } from "../arrayTest/produtos.js";
 import { closeModal } from "./setOpenCloseModal.js";
+import { Atualizacao } from "./AtualizacaoModel.js";
+
+
 export default class LocalModel {
   static modalDeleteID = "#deleteProductModal";
   static modalUpdateID = "#editProductModal";
@@ -29,7 +32,7 @@ export default class LocalModel {
     deleteBotao.addEventListener("click", this.deletaLocal);
     td5.append(editBotao, deleteBotao);
 
-    editBotao.href = "#editProductModal";
+    editBotao.href = "#editProductModalLocal";
     editBotao.classList.add("edit");
     editBotao.setAttribute("data-toggle", "modal");
 
@@ -75,7 +78,6 @@ export default class LocalModel {
     LocalModel.deleteBtn.removeEventListener("click", LocalModel.performaDelecao, false);
     const id = LocalModel.currentProduct.id;
     const idx = locais.findIndex((el) => el.id == id);
-    console.log(idx);
     locais.splice(idx, 1);
     LocalModel.populaLocais();
     closeModal(LocalModel.modalDeleteID);
@@ -84,5 +86,6 @@ export default class LocalModel {
   static editaLocal(e) {
     e.preventDefault();
     const obj = JSON.parse(e.currentTarget.id);
+    Atualizacao.AtualizacaoLocal(obj)
   }
 }
