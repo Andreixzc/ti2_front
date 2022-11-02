@@ -1,4 +1,5 @@
 const urlInsertUser = "https://expresso-fiesta.herokuapp.com/usuario/login";
+const urlGetCompany = "https://expresso-fiesta.herokuapp.com/empresa/listUsuario/";
 const formLogin = document.getElementById("form_login_usuario");
 formLogin.addEventListener("submit", validar);
 function validar(event) {
@@ -6,6 +7,7 @@ function validar(event) {
   const formDados = new FormData(event.target);
   const novoUsuario = JSON.stringify(Object.fromEntries(formDados));
   formLogin.reset();
+  localStorage.clear()
   fazPost(novoUsuario);
 }
 async function fazPost(data) {
@@ -22,7 +24,14 @@ async function fazPost(data) {
 
   delete resultado.senha;
   localStorage.setItem("@CURRENT_USER", JSON.stringify(resultado));
-
+  if (resultado.vendedor == "SIM") {
+    console.log(resultado.id)
+    let ur = urlGetCompany + resultado.id
+    console.log(ur)
+    let vend = await fetch(ur).then((res) => res.json()).then((res)=>res);
+    localStorage.setItem("@CURRENT_COMPANY", JSON.stringify(vend));
+  }
+  
   setTimeout(() => {
     window.location = "/src/Delicious/index.html";
   }, 500);

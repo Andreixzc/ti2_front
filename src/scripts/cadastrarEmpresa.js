@@ -5,8 +5,8 @@ formCadastrar.addEventListener("submit", cadastrar);
 async function cadastrar(e) {
   e.preventDefault();
   const empresa = {
-    id_usuario: JSON.parse(localStorage.getItem("@CURRENT_USER")).id,
     nome_empresa: e.target.nome_empresa.value,
+    id_usuario: JSON.parse(localStorage.getItem("@CURRENT_USER")).id,
   };
   const novaEmpresa = JSON.stringify(empresa);
 
@@ -20,11 +20,11 @@ async function cadastrar(e) {
       return res;
     })
     .catch((err) => window.alert(err.message));
-
+    
   // gravar local storage somente no login
   // localStorage.setItem("@CURRENT_COMPANY", JSON.stringify(res));
 
   setTimeout(() => {
-    window.location = "/src/login.html";
+    window.location = "../../login.html";
   }, 500);
 }

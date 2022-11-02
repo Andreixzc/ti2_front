@@ -2,6 +2,7 @@ export default class Model {
   static arrayLocais = JSON.parse(localStorage.getItem("@CURRENT_CART")) || [];
 
   static CriaCard(elem) {
+    console.log(elem);
     const card = document.createElement("div");
     card.classList.add("col-12", "col-md-6", "col-lg-4", "cardCont");
 
@@ -11,7 +12,9 @@ export default class Model {
 
     const image = document.createElement("img");
     image.classList.add("card-img-top", "img-cart");
-    image.src = elem.urlImg;
+    image.src = elem.local_imagem;
+    if (elem.secao == "Atracao") image.src = elem.atracao_imagem;
+    if (elem.secao == "Alimento") image.src = elem.imagem_alimento;
     cardSub.append(image);
 
     const cardBody = document.createElement("div");
@@ -42,9 +45,7 @@ export default class Model {
     button.classList.add("btn", "btn-success", "btn-block");
     button.innerText = "Adicionar ao pedido";
     cardBody.append(button);
-    button.addEventListener("click", () =>
-      this.adicionaCardLocalCarrinho(elem)
-    );
+    button.addEventListener("click", () => this.adicionaCardLocalCarrinho(elem));
 
     return card;
   }
@@ -131,9 +132,7 @@ export default class Model {
     const buttonSUB = document.createElement("button");
     buttonSUB.classList.add("buttonQT");
     buttonSUB.innerText = "-";
-    buttonSUB.addEventListener("click", (event) =>
-      this.removerQuantidadeUnitaria(event, elem)
-    );
+    buttonSUB.addEventListener("click", (event) => this.removerQuantidadeUnitaria(event, elem));
     divQuantidade.append(buttonSUB);
 
     const QuantidadeUnit = document.createElement("span");
@@ -143,17 +142,13 @@ export default class Model {
     const buttonADD = document.createElement("button");
     buttonADD.classList.add("buttonQT");
     buttonADD.innerText = "+";
-    buttonADD.addEventListener("click", () =>
-      this.adicionaCardLocalCarrinho(elem)
-    );
+    buttonADD.addEventListener("click", () => this.adicionaCardLocalCarrinho(elem));
     divQuantidade.append(buttonADD);
 
     const buttonRemover = document.createElement("button");
     buttonRemover.classList.add("buttonRemover");
     buttonRemover.innerText = "Remover";
-    buttonRemover.addEventListener("click", (event) =>
-      this.removerDefinitivo(event, elem)
-    );
+    buttonRemover.addEventListener("click", (event) => this.removerDefinitivo(event, elem));
     cartOpt.append(buttonRemover);
 
     return cardLocalCart;
