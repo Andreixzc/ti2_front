@@ -1,8 +1,9 @@
-import { atracoes, alimentos, locais } from "../arrayTest/produtos.js";
 import AlimentoModel from "./ALimentoModel.js";
 import AtracaoModel from "./AtracaoModel.js";
 import LocalModel from "./LocalModel.js";
 import { closeModal } from "./setOpenCloseModal.js";
+
+const companyId = JSON.parse(localStorage.getItem("@CURRENT_COMPANY")).id;
 
 export class Atualizacao {
   static modalAlimentoId = "#editProductModalAlimento";
@@ -48,44 +49,58 @@ export class Atualizacao {
     botaoSalvar.addEventListener("click", Atualizacao.performaAtualizacaoLocal);
   }
 
-  static performaAtualizacaoAlimento() {
+  static async performaAtualizacaoAlimento() {
     const alimentoForm = document.getElementById(Atualizacao.formularioAlimentoId);
     const formDados = new FormData(alimentoForm);
     const produto = Object.fromEntries(formDados);
     const produtoAtualizado = Atualizacao.convertePraNumero(produto)
     const produtoFinal = {...Atualizacao.produtoAtualOriginal, ...produtoAtualizado}
-    const index = alimentos.findIndex(el=> el.id == produtoFinal.id)
-    alimentos[index] = produtoFinal
+
     alimentoForm.reset()
-    console.table(alimentos);
-    AlimentoModel.populaAlimentos();
+    
+    await fetch("https://expresso-fiesta.herokuapp.com/alimento/update/"+produtoFinal.id, {
+      method: "POST",
+      body: JSON.stringify(produtoFinal),
+    });
+
+    await AlimentoModel.populaAlimentos();
     closeModal(Atualizacao.modalAlimentoId);
 
   }
-  static performaAtualizacaoAtracao() {
+  static async performaAtualizacaoAtracao() {
     const atracaoForm = document.getElementById(Atualizacao.formularioAtracaoId);
     const formDados = new FormData(atracaoForm);
     const produto = Object.fromEntries(formDados);
     const produtoAtualizado = Atualizacao.convertePraNumero(produto)
     const produtoFinal = {...Atualizacao.produtoAtualOriginal, ...produtoAtualizado}
-    const index = atracoes.findIndex(el=> el.id == produtoFinal.id)
-    atracoes[index] = produtoFinal
+    // const index = atracoes.findIndex(el=> el.id == produtoFinal.id)
+    // atracoes[index] = produtoFinal
     atracaoForm.reset()
-    console.table(atracoes);
-    AtracaoModel.populaAtracao();
+    // console.table(atracoes);
+    await fetch("https://expresso-fiesta.herokuapp.com/atracao/update/"+produtoFinal.id, {
+      method: "POST",
+      body: JSON.stringify(produtoFinal),
+    });
+
+    await AtracaoModel.populaAtracao();
     closeModal(Atualizacao.modalAtracaoId);
   }
-  static performaAtualizacaoLocal() {
+  static async  performaAtualizacaoLocal() {
     const localForm = document.getElementById(Atualizacao.formularioLocalId);
     const formDados = new FormData(localForm);
     const produto = Object.fromEntries(formDados);
     const produtoAtualizado = Atualizacao.convertePraNumero(produto)
     const produtoFinal = {...Atualizacao.produtoAtualOriginal, ...produtoAtualizado}
-    const index = locais.findIndex(el=> el.id == produtoFinal.id)
-    locais[index] = produtoFinal
+    // const index = locais.findIndex(el=> el.id == produtoFinal.id)
+    // locais[index] = produtoFinal
+
     localForm.reset()
-    console.table(locais);
-    LocalModel.populaLocais();
+    await fetch("https://expresso-fiesta.herokuapp.com/local/update/"+produtoFinal.id, {
+      method: "POST",
+      body: JSON.stringify(produtoFinal),
+    });
+
+    await LocalModel.populaLocais();
     closeModal(Atualizacao.modalLocalId);
   }
 

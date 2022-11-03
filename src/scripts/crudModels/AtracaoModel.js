@@ -1,7 +1,7 @@
 import { atracoes } from "../arrayTest/produtos.js";
 import { closeModal } from "./setOpenCloseModal.js";
 import { Atualizacao } from "./AtualizacaoModel.js";
-
+const companyId = JSON.parse(localStorage.getItem("@CURRENT_COMPANY")).id;
 
 export default class AtracaoModel {
   static modalDeleteID = "#deleteProductModal";
@@ -58,28 +58,39 @@ export default class AtracaoModel {
     return trContainer;
   }
 
-  static populaAtracao() {
+  static async populaAtracao() {
     const containerAtracoes = document.getElementById("container-atracoes--");
     containerAtracoes.innerHTML = "";
-
-    atracoes.forEach((el) => {
+    const atracaoReq = await fetch(
+      "https://expresso-fiesta.herokuapp.com/empresa/atracaoList/" + companyId
+    )
+      .then((res) => res.json())
+      .then((res) => res)
+      .catch((er) => console.error(er));
+    atracaoReq.forEach((el) => {
       containerAtracoes.appendChild(this.criaCardAtracao(el));
     });
   }
 
-  static deletaAtracao(e) {
+  static async deletaAtracao(e) {
     const obj = JSON.parse(e.currentTarget.id);
     const botaoExcluir = document.getElementById("botao-excluir");
     AtracaoModel.currentProduct = obj;
     botaoExcluir.addEventListener("click", AtracaoModel.performaDelecao);
     AtracaoModel.deleteBtn = botaoExcluir;
   }
-  static performaDelecao() {
+  static async performaDelecao() {
     AtracaoModel.deleteBtn.removeEventListener("click", AtracaoModel.performaDelecao, false);
-    const id = AtracaoModel.currentProduct.id;
-    const idx = atracoes.findIndex((el) => el.id == id);
-    atracoes.splice(idx, 1);
-    AtracaoModel.populaAtracao();
+    // const id = AtracaoModel.currentProduct.id;
+    // const idx = atracoes.findIndex((el) => el.id == id);
+    // atracoes.splice(idx, 1);
+    await fetch(
+      "https://expresso-fiesta.herokuapp.com/atracao/delete/" + AtracaoModel.currentProduct.id,
+      {
+        method: "POST",
+      }
+      );
+    await AtracaoModel.populaAtracao();
     closeModal(AtracaoModel.modalDeleteID);
   }
 

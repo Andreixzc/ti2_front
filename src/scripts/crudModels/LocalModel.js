@@ -1,7 +1,7 @@
 import { locais } from "../arrayTest/produtos.js";
 import { closeModal } from "./setOpenCloseModal.js";
 import { Atualizacao } from "./AtualizacaoModel.js";
-
+const companyId = JSON.parse(localStorage.getItem("@CURRENT_COMPANY")).id;
 
 export default class LocalModel {
   static modalDeleteID = "#deleteProductModal";
@@ -57,16 +57,22 @@ export default class LocalModel {
     return trContainer;
   }
 
-  static populaLocais() {
+  static async populaLocais() {
     const containerLocais = document.getElementById("container-locais--");
     containerLocais.innerHTML = "";
 
-    locais.forEach((el) => {
+    const localReq = await fetch(
+      "https://expresso-fiesta.herokuapp.com/empresa/localList/" + companyId
+    )
+      .then((res) => res.json())
+      .then((res) => res)
+      .catch((er) => console.error(er));
+    localReq.forEach((el) => {
       containerLocais.appendChild(this.criaCardLocal(el));
     });
   }
 
-  static deletaLocal(e) {
+  static async deletaLocal(e) {
     const obj = JSON.parse(e.currentTarget.id);
     const botaoExcluir = document.getElementById("botao-excluir");
     LocalModel.currentProduct = obj;
@@ -74,18 +80,25 @@ export default class LocalModel {
     LocalModel.deleteBtn = botaoExcluir;
   }
 
-  static performaDelecao() {
+  static async performaDelecao() {
     LocalModel.deleteBtn.removeEventListener("click", LocalModel.performaDelecao, false);
-    const id = LocalModel.currentProduct.id;
-    const idx = locais.findIndex((el) => el.id == id);
-    locais.splice(idx, 1);
-    LocalModel.populaLocais();
+    // const id = LocalModel.currentProduct.id;
+    // const idx = locais.findIndex((el) => el.id == id);
+    // locais.splice(idx, 1);
+    await fetch(
+      "https://expresso-fiesta.herokuapp.com/local/delete/" + LocalModel.currentProduct.id,
+      {
+        method: "POST",
+      }
+    );
+
+    await LocalModel.populaLocais();
     closeModal(LocalModel.modalDeleteID);
   }
 
   static editaLocal(e) {
     e.preventDefault();
     const obj = JSON.parse(e.currentTarget.id);
-    Atualizacao.AtualizacaoLocal(obj)
+    Atualizacao.AtualizacaoLocal(obj);
   }
 }

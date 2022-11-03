@@ -1,9 +1,9 @@
-import { atracoes, alimentos, locais } from "../arrayTest/produtos.js";
 import AlimentoModel from "./ALimentoModel.js";
 import AtracaoModel from "./AtracaoModel.js";
 import LocalModel from "./LocalModel.js";
 import { closeModal } from "./setOpenCloseModal.js";
 
+const companyId = JSON.parse(localStorage.getItem("@CURRENT_COMPANY")).id;
 export class Registro {
   static modalAlimentoId = "#addProductModalAlimento";
   static modalAtracaoId = "#addProductModalAtracao";
@@ -44,11 +44,7 @@ export class Registro {
     return true;
   }
 
-  static geraIdRandom() {
-    return parseInt(Math.random() * (30000 - 200) + 200);
-  }
-
-  static performaCriacaoAlimento() {
+  static async performaCriacaoAlimento() {
     const alimentoForm = document.getElementById("form-create-alimento");
     const formDados = new FormData(alimentoForm);
     const novoProduto = Object.fromEntries(formDados);
@@ -56,23 +52,24 @@ export class Registro {
     if (!validacao) {
       return;
     }
-    // json stringfy dpois
     alimentoForm.reset();
-    const idProduto = Registro.geraIdRandom(); 
+
     const prod = {
-      id: idProduto,
-      id_empresa: 1, // colocar o localstoragep ra final dinamico
+      id_empresa: companyId,
       ...novoProduto,
       valor: +novoProduto.valor,
       quantidade: +novoProduto.quantidade,
     };
 
-    alimentos.push(prod);
-    console.table(alimentos);
-    AlimentoModel.populaAlimentos();
+    await fetch("https://expresso-fiesta.herokuapp.com/alimento/insert", {
+      method: "POST",
+      body: JSON.stringify(prod),
+    });
+
+    await AlimentoModel.populaAlimentos();
     closeModal(Registro.modalAlimentoId);
   }
-  static performaCriacaoAtracao() {
+  static async performaCriacaoAtracao() {
     const atracaoForm = document.getElementById("form-create-atracao");
     const formDados = new FormData(atracaoForm);
     const novoProduto = Object.fromEntries(formDados);
@@ -80,21 +77,24 @@ export class Registro {
     if (!validacao) {
       return;
     }
-    // json stringfy dpois
     atracaoForm.reset();
-    const idProduto = Registro.geraIdRandom(); 
+
+
     const prod = {
-      id: idProduto,
-      id_empresa: 1, // colocar o localstoragep ra final dinamico
+      id_empresa: companyId,
       ...novoProduto,
       valor: +novoProduto.valor,
     };
-    atracoes.push(prod);
-    console.table(atracoes);
-    AtracaoModel.populaAtracao();
+
+    await fetch("https://expresso-fiesta.herokuapp.com/atracao/insert", {
+      method: "POST",
+      body: JSON.stringify(prod),
+    });
+
+    await AtracaoModel.populaAtracao();
     closeModal(Registro.modalAtracaoId);
   }
-  static performaCriacaoLocal() {
+  static async performaCriacaoLocal() {
     const localForm = document.getElementById("form-create-local");
     const formDados = new FormData(localForm);
     const novoProduto = Object.fromEntries(formDados);
@@ -102,20 +102,22 @@ export class Registro {
     if (!validacao) {
       return;
     }
-    // json stringfy dpois
     localForm.reset();
-    const idProduto = Registro.geraIdRandom(); 
-    const statusLocal = "DISPONIVEL";
+    const statusLocal = "Disponivel";
+
     const prod = {
-      id: idProduto,
-      id_empresa: 1, // colocar o localstoragep ra final dinamico
+      id_empresa: companyId,
       status: statusLocal,
       ...novoProduto,
       valor: +novoProduto.valor,
     };
-    locais.push(prod);
-    console.table(locais);
-    LocalModel.populaLocais();
+    await fetch("https://expresso-fiesta.herokuapp.com/local/insert", {
+      method: "POST",
+      body: JSON.stringify(prod),
+    });
+
+
+    await LocalModel.populaLocais();
     closeModal(Registro.modalLocalId);
   }
 }

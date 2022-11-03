@@ -13,12 +13,8 @@ function logout() {
 const empresaId = JSON.parse(localStorage.getItem("@CURRENT_COMPANY")) || null;
 if (!empresaId) logout();
 
-// const urlGetAlimento = `https://expresso-fiesta.herokuapp.com/empresa/alimentoList/${empresaId}`;
-// const urlGetAtracao = `https://expresso-fiesta.herokuapp.com/empresa/atracaoList/${empresaId}`;
-// const urlGetLocal = `https://expresso-fiesta.herokuapp.com/empresa/localList/${empresaId}`;
 
 AlimentoModel.populaAlimentos();
 AtracaoModel.populaAtracao();
 LocalModel.populaLocais();
-
 Registro.CriacaoDeProdutos();

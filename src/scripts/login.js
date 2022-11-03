@@ -25,9 +25,7 @@ async function fazPost(data) {
   delete resultado.senha;
   localStorage.setItem("@CURRENT_USER", JSON.stringify(resultado));
   if (resultado.vendedor == "SIM") {
-    console.log(resultado.id)
     let ur = urlGetCompany + resultado.id
-    console.log(ur)
     let vend = await fetch(ur).then((res) => res.json()).then((res)=>res);
     localStorage.setItem("@CURRENT_COMPANY", JSON.stringify(vend));
   }

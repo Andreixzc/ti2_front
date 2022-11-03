@@ -1,6 +1,8 @@
-import { alimentos } from "../arrayTest/produtos.js";
+// import { alimentos } from "../arrayTest/produtos.js";
 import { closeModal } from "./setOpenCloseModal.js";
 import { Atualizacao } from "./AtualizacaoModel.js";
+
+const companyId = JSON.parse(localStorage.getItem("@CURRENT_COMPANY")).id;
 export default class AlimentoModel {
   static modalDeleteID = "#deleteProductModal";
   static modalUpdateID = "#editProductModal";
@@ -57,16 +59,22 @@ export default class AlimentoModel {
     return trContainer;
   }
 
-  static populaAlimentos() {
+  static async populaAlimentos() {
     const containerAlimentos = document.getElementById("container-alimentos--");
     containerAlimentos.innerHTML = "";
-    // fazer requisicao de get aqui armazenar os dados atualizados
-    alimentos.forEach((el) => {
+
+    const alimentoReq = await fetch(
+      "https://expresso-fiesta.herokuapp.com/empresa/alimentoList/" + companyId
+    )
+      .then((res) => res.json())
+      .then((res) => res)
+      .catch((er) => console.error(er));
+    alimentoReq.forEach((el) => {
       containerAlimentos.appendChild(this.criaCardAlimento(el));
     });
   }
 
-  static deletaAlimento(e) {
+  static async deletaAlimento(e) {
     const obj = JSON.parse(e.currentTarget.id);
     const botaoExcluir = document.getElementById("botao-excluir");
     AlimentoModel.currentProduct = obj;
@@ -75,12 +83,17 @@ export default class AlimentoModel {
   }
   static async performaDelecao() {
     AlimentoModel.deleteBtn.removeEventListener("click", AlimentoModel.performaDelecao, false);
-    const id = AlimentoModel.currentProduct.id;
-    const idx = alimentos.findIndex((el) => el.id == id);
+    // const id = AlimentoModel.currentProduct.id;
+    // const idx = alimentos.findIndex((el) => el.id == id);
     // aqui sera necessario esperar terminar o delete e fazer
     // o get denovo nos produtos
-    await alimentos.splice(idx, 1);
-
+    // await alimentos.splice(idx, 1);
+    await fetch(
+      "https://expresso-fiesta.herokuapp.com/alimento/delete/" + AlimentoModel.currentProduct.id,
+      {
+        method: "POST",
+      }
+    );
     await AlimentoModel.populaAlimentos();
     closeModal(AlimentoModel.modalDeleteID);
   }
@@ -88,6 +101,6 @@ export default class AlimentoModel {
   static editaAlimento(e) {
     e.preventDefault();
     const obj = JSON.parse(e.currentTarget.id);
-    Atualizacao.AtualizacaoAlimento(obj)
+    Atualizacao.AtualizacaoAlimento(obj);
   }
 }
