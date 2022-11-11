@@ -16,7 +16,6 @@ async function cadastrar(e) {
   })
     .then((res) => res.json())
     .then((res) => {
-      console.log(res);
       return res;
     })
     .catch((err) => window.alert(err.message));

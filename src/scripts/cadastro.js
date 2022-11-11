@@ -41,7 +41,6 @@ async function registerUser(data, empresario) {
 }
 
 async function login(loginData) {
-  console.log(loginData);
   let resultado = await fetch(urlLoginUser, {
     method: "POST",
     body: JSON.stringify(loginData),

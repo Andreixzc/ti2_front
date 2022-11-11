@@ -98,4 +98,8 @@ async function montaPedido(event, data) {
   const resultado = await fetch(urlReq, { method: "POST" })
     .then((res) => res.json())
     .then((res) => console.log(res));
+  
+  localStorage.removeItem('@CURRENT_CART')
+  window.alert('Pedido feito, você será redirecionado para a aba de seus pedidos!')
+  location.href = './Pedidos.html'
 }

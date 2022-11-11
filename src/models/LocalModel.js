@@ -2,7 +2,6 @@ export default class Model {
   static arrayLocais = JSON.parse(localStorage.getItem("@CURRENT_CART")) || [];
 
   static CriaCard(elem) {
-    console.log(elem);
     const card = document.createElement("div");
     card.classList.add("col-12", "col-md-6", "col-lg-4", "cardCont");
 
@@ -12,9 +11,9 @@ export default class Model {
 
     const image = document.createElement("img");
     image.classList.add("card-img-top", "img-cart");
-    image.src = elem.local_imagem;
+    image.src = elem.imagem_alimento;
     if (elem.secao == "Atracao") image.src = elem.atracao_imagem;
-    if (elem.secao == "Alimento") image.src = elem.imagem_alimento;
+    if (elem.secao == "Local") image.src = elem.local_imagem
     cardSub.append(image);
 
     const cardBody = document.createElement("div");
@@ -100,7 +99,10 @@ export default class Model {
 
     const image = document.createElement("img");
     image.classList.add("productImage");
-    image.src = elem.urlImg;
+    image.src = elem.imagem_alimento;
+    if (elem.secao == "Atracao") image.src = elem.atracao_imagem;
+    if (elem.secao == "Local") image.src = elem.local_imagem
+
     cardLocalCart.append(image);
 
     const divSec = document.createElement("div");
