@@ -8,6 +8,9 @@
     <meta content="" name="description" />
     <meta content="" name="keywords" />
 
+    <link rel="stylesheet" href="chat.css" />
+    <script src="response.js" defer></script>
+    <script src="chatBot.js" defer></script>
     <!-- Favicons -->
     <link href="assets/img/favicon.png" rel="icon" />
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
@@ -270,10 +273,33 @@
                   ><img
                     src="/src/AssetsImg/locacao.jpg"
                     class="img-thumbnail"
-                    alt="..."
+                    alt="..."chatBox
                 /></a>
               </div>
             </div>
+            
+            <div class="containerChatBot allChatBox openClose ">
+              <div class="chat-header">
+                  <div class="title">Em que posso ajudar?</div>
+                  <button class="closeOpen button-chatBot"> Close </button>
+              </div>
+              <div class="chat-body">
+                  <div class="chatbot-message">
+                      <txt>Boa tarde sou o chatBot inteligente futuramente irei fazer masic oisa, mas por enquanto consigo te
+                          ajduar nas suas escolha para uma festa melhor, caso queira digite<br> <b>RECOMENDAÇAO</b> ou <b>ajuda</b>
+                      </txt>
+                  </div>
+              </div>
+              <div class="chat-input">
+                  <div class="input-sec">
+                      <input type="text" id="txtInput" placeholder="Digite" autofocus />
+                  </div>
+                  <div class="send">
+                      Enviar
+                  </div>
+              </div>
+          </div>
+          <div class="container-chatBox button-chatBot">Abrir Chat</div>
         
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
