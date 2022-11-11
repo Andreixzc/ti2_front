@@ -1,23 +1,33 @@
-const urlLocal = "https://expresso-fiesta.herokuapp.com/local/1"
-const urlAtracao = "https://expresso-fiesta.herokuapp.com/atracao/1"
-const urlAlimento = "https://expresso-fiesta.herokuapp.com/alimento/2"
+const urlLocal = "https://expresso-fiesta.herokuapp.com/local/list";
+const urlAtracao = "https://expresso-fiesta.herokuapp.com/atracao/list";
+const urlAlimento = "https://expresso-fiesta.herokuapp.com/alimento/list";
 
 const responseObj = {
-    local : "",
-    atracao:"",
-    alimento:"",
-    festa:""
-  };
-  
-  carregaDados();
-  
+  recomendar: "",
+};
 
-  async function carregaDados() {
-    const data1 = await fetch(urlLocal).then((res )=> res.json()).then((res)=>res).catch((error)=>console.log(error))
-    const data2 = await fetch(urlAtracao).then((res )=> res.json()).then((res)=>res).catch((error)=>console.log(error))
-    const data3 = await fetch(urlAlimento).then((res )=> res.json()).then((res)=>res).catch((error)=>console.log(error))
-    responseObj.local = data1.nome;
-    responseObj.atracao = data2.nome;
-    responseObj.alimento = data3.nome;
-    responseObj.festa = "Nome do local: \n"+data1.nome+" Nome atracao\n"+data2.nome+" Nome Alimento\n"+data3.nome;
-  }
+carregaDados();
+
+async function carregaDados() {
+  const data1 = await fetch(urlLocal)
+    .then((res) => res.json())
+    .then((res) => res)
+    .catch((error) => console.log(error));
+  const data2 = await fetch(urlAtracao)
+    .then((res) => res.json())
+    .then((res) => res)
+    .catch((error) => console.log(error));
+  const data3 = await fetch(urlAlimento)
+    .then((res) => res.json())
+    .then((res) => res)
+    .catch((error) => console.log(error));
+  const att = [...data3];
+  att.sort((a, b) => b.quantidade - a.quantidade);
+
+
+  responseObj.recomendar = `
+    Alimento mais popular: ${att[0].nome}, 
+    Local mais desejado: ${data1[0].nome}, 
+    Atracao mais cobiçada: ${data2[0].nome}
+  `
+}
