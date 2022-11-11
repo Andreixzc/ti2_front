@@ -34,7 +34,7 @@ async function registerUser(data, empresario) {
     }, 500);
     return;
   }
-
+  window.alert("Cadastro efetuado com sucesso!")
   setTimeout(() => {
     window.location = "/login.html";
   }, 500);
@@ -48,6 +48,7 @@ async function login(loginData) {
     .then((res) => res.json())
     .then((res) => res)
     .catch((err) => window.alert(err.message));
+    window.alert("Cadastro efetuado com sucesso!")
 
   delete resultado.senha;
   localStorage.setItem("@CURRENT_USER", JSON.stringify(resultado));

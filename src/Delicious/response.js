@@ -5,7 +5,8 @@ const urlAlimento = "https://expresso-fiesta.herokuapp.com/alimento/2"
 const responseObj = {
     local : "",
     atracao:"",
-    alimento:""
+    alimento:"",
+    festa:""
   };
   
   carregaDados();
@@ -18,4 +19,5 @@ const responseObj = {
     responseObj.local = data1.nome;
     responseObj.atracao = data2.nome;
     responseObj.alimento = data3.nome;
+    responseObj.festa = "Nome do local: \n"+data1.nome+" Nome atracao\n"+data2.nome+" Nome Alimento\n"+data3.nome;
   }

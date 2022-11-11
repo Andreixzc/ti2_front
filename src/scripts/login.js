@@ -29,7 +29,7 @@ async function fazPost(data) {
     let vend = await fetch(ur).then((res) => res.json()).then((res)=>res);
     localStorage.setItem("@CURRENT_COMPANY", JSON.stringify(vend));
   }
-  
+  window.alert("Login efetuado com sucesso!")
   setTimeout(() => {
     window.location = "/src/Delicious/index.html";
   }, 500);
